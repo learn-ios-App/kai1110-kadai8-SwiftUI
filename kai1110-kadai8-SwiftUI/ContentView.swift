@@ -1,21 +1,36 @@
-//
-//  ContentView.swift
-//  kai1110-kadai8-SwiftUI
-//
-//  Created by 渡邊魁優 on 2022/12/15.
-//
 
 import SwiftUI
-
+ 
 struct ContentView: View {
+    @State var sliderNumber: Double = 0.0
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            TabView {
+                SliderView(sliderNumber: $sliderNumber, backGroundColor: Color.red)
+                    .tabItem {
+                        Text("item 1")
+                    }
+                SliderView(sliderNumber: $sliderNumber, backGroundColor: Color.green)
+                    .tabItem {
+                        Text("item 2")
+                    }
+            }
         }
-        .padding()
+    }
+}
+
+struct SliderView: View {
+    @Binding var sliderNumber: Double
+    let backGroundColor: Color
+    var body: some View {
+        ZStack {
+            backGroundColor
+            VStack {
+                Text("\(sliderNumber)")
+                Slider(value: $sliderNumber, in: 0...1)
+            }
+            .padding()
+        }
     }
 }
 
